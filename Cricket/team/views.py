@@ -25,12 +25,28 @@ def playerHistory_details(request, id=None):
         player = get_object_or_404(Player, id=id)
         playerHistory = PlayerHistory.objects.get(player__pk=player.id)
     except:
-        return HttpResponse('<h1>Player Stats not updated. Please Update the stats.</h1>')
+        return HttpResponseRedirect(reverse('playerHistory_add'))
 
     context = {}
     context['player'] = player
     context['playerHistory'] = playerHistory
     return render(request, 'team/playerhistory_details.html', context)
+
+
+def playerHistory_add(request):
+    context = {}
+    if request.method == 'POST':
+        playerhistory_form = PlayerHistoryForm(request.POST)
+        context['playerhistory_form'] = playerhistory_form
+        if playerhistory_form.is_valid():
+            u = playerhistory_form.save()
+            return HttpResponseRedirect(reverse('teams'))
+        else:
+            return render(request, 'team/playerhistory_add.html', context)
+    else:
+        playerhistory_form = PlayerHistoryForm()
+        context['playerhistory_form'] = playerhistory_form
+        return render(request, 'team/playerhistory_add.html', context)
 
 
 def playerHistory_edit(request, id=None):

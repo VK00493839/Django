@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('<int:id>/details/', views.playerHistory_details,
          name="playerHistory_details"),
+    path('playerHistory/add/', views.playerHistory_add, name="playerHistory_add"),
     path('<int:id>/edit/', views.playerHistory_edit, name="playerHistory_edit"),
 
     path('matchesList/', views.matchesList, name='matches_list'),
