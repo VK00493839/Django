@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+#from django.views.decorators.csrf import csrf_exempt
 import json
 import datetime
 from . models import *
@@ -26,7 +27,7 @@ def cart(request):
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
-
+#@csrf_exempt
 def checkout(request):
     data = cartData(request)
 
